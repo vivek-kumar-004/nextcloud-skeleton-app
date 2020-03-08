@@ -8,8 +8,13 @@
             "name": "Abijeet Patro"
         }
     ],
-    "require": {},
+    "require": {
+		"php": ">=7.3"
+	},
     "require-dev": {
-        "phpunit/phpunit": "^5.4"
-    }
+		"phpunit/phpunit": "^9.0",
+		"phan/phan": "^2.6"
+	},
+	"scripts": {
+	}
 }
