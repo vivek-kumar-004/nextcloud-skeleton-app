@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>skeleton_app</id>
+    <name>Skeleton App</name>
+    <summary>A skeleton app to be used as a base for other Nextcloud apps.</summary>
+    <description><![CDATA[A skeleton app to be used as a base for other Nextcloud apps. Adds phpcs and phan for better development experience.]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="abijeetpatro@gmail.com" homepage="https://thecurlybraces.com">Abijeet Patro</author>
+    <namespace>SkeletonApp</namespace>
+    <category>tools</category>
+    <bugs>https://thecurlybraces.com</bugs>
+    <dependencies>
+        <nextcloud min-version="18" max-version="18"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Skeleton App</name>
+            <route>skeletonapp.page.index</route>
+        </navigation>
+    </navigations>
+</info>
