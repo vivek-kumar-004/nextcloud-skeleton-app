@@ -9,7 +9,8 @@ use OCP\DB\ISchemaWrapper;
 use OCP\Migration\SimpleMigrationStep;
 use OCP\Migration\IOutput;
 
-class Version000000Date20181013124731 extends SimpleMigrationStep {
+class Version000000Date20181013124731 extends SimpleMigrationStep
+{
 
 	/**
 	 * @param IOutput $output
@@ -17,7 +18,8 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options) {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options)
+	{
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
@@ -45,5 +47,4 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 		}
 		return $schema;
 	}
-
 }

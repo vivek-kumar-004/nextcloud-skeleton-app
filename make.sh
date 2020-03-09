@@ -35,5 +35,7 @@ APP="$(basename -- $DIRSCRIPT)";
 
 FULL_COMMAND="make --directory=/var/www/html/apps/$APP/ $COMMAND"
 echo "Running '$FULL_COMMAND' in docker - '$DOCKER_NAME'";
+printf "=%.0s"  $(seq 1 120)
+echo '';
 
 docker exec -it $DOCKER_NAME bash -c "source ~/.bashrc && $FULL_COMMAND"

@@ -19,6 +19,9 @@ npm-init:
 npm-update:
 	npm update
 
+composer-update:
+	php composer.phar update
+
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
 
@@ -71,6 +74,21 @@ stylelint:
 
 stylelint-fix:
 	npm run stylelint:fix
+
+php-lint:
+	php composer.phar run lint
+
+php-lint-fix:
+	php composer.phar run lint:fix
+
+# Code quality
+php-analyze:
+	php composer.phar run phan
+
+# Pre-commit
+lint-all: lint-fix lint stylelint-fix stylelint php-lint-fix php-lint
+
+pre-commit: lint-all php-analyze
 
 # Cleaning
 clean:

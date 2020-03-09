@@ -2,5 +2,6 @@
 
 namespace OCA\SkeletonApp\Service;
 
-
-class NoteNotFound extends \Exception {}
+class NoteNotFound extends \Exception
+{
+}

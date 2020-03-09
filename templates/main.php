@@ -1,4 +1,5 @@
 <?php
+
 script('skeleton_app', 'skeletonapp');
 ?>
 
