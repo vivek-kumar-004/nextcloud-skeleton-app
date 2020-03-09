@@ -20,18 +20,15 @@ npm-update:
 	npm update
 
 composer-update:
-	php composer.phar update
-
-composer.phar:
-	curl -sS https://getcomposer.org/installer | php
+	composer update
 
 install-deps: install-composer-deps-dev npm-init
 
 install-composer-deps: composer.phar
-	php composer.phar install --no-dev -o
+	composer install --no-dev -o
 
 install-composer-deps-dev: composer.phar
-	php composer.phar install -o
+	composer install -o
 
 # Building
 build-js:
@@ -54,12 +51,12 @@ test-coverage:
 	npm run test:coverage
 
 test-php:
-	php composer.phar run test:unit
-	php composer.phar run test:integration
+	composer run test:unit
+	composer run test:integration
 
 test-php-coverage:
-	php composer.phar run test:unit -- --coverage-clover=coverage-unit.xml
-	php composer.phar run test:integration -- --coverage-clover=coverage-integration.xml
+	composer run test:unit -- --coverage-clover=coverage-unit.xml
+	composer run test:integration -- --coverage-clover=coverage-integration.xml
 
 # Linting
 lint:
@@ -76,14 +73,14 @@ stylelint-fix:
 	npm run stylelint:fix
 
 php-lint:
-	php composer.phar run lint
+	composer run lint
 
 php-lint-fix:
-	php composer.phar run lint:fix
+	composer run lint:fix
 
 # Code quality
 php-analyze:
-	php composer.phar run phan
+	composer run phan
 
 # Pre-commit
 lint-all: lint-fix lint stylelint-fix stylelint php-lint-fix php-lint
