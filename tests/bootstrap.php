@@ -1,19 +1,8 @@
 <?php
 
-if (!defined('PHPUNIT_RUN')) {
-    define('PHPUNIT_RUN', 1);
-}
-
 require_once __DIR__.'/../../../lib/base.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
-// Fix for "Autoload path not allowed: .../tests/lib/testcase.php"
 \OC::$loader->addValidRoot(OC::$SERVERROOT . '/tests');
+\OC_App::loadApp('skeleton_app');
 
-// Fix for "Autoload path not allowed: .../skeletonapp/tests/testcase.php"
-\OC_App::loadApp('skeletonapp');
-
-if(!class_exists('PHPUnit_Framework_TestCase')) {
-    require_once('PHPUnit/Autoload.php');
-}
-
-OC_Hook::clear();

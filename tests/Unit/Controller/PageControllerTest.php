@@ -1,30 +1,25 @@
 <?php
+namespace OCA\SkeletonApp\Controller;
 
-namespace OCA\SkeletonApp\Tests\Unit\Controller;
-
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 
 use OCP\AppFramework\Http\TemplateResponse;
 
-use OCA\SkeletonApp\Controller\PageController;
+class PageControllerTest extends TestCase {
 
-
-class PageControllerTest extends PHPUnit_Framework_TestCase {
 	private $controller;
-	private $userId = 'john';
 
-	public function setUp() {
+	public function setUp(): void {
 		$request = $this->getMockBuilder('OCP\IRequest')->getMock();
-
-		$this->controller = new PageController(
-			'skeletonapp', $request, $this->userId
-		);
+		$this->controller = new PageController('skeleton_app', $request);
 	}
+
 
 	public function testIndex() {
 		$result = $this->controller->index();
 
-		$this->assertEquals('index', $result->getTemplateName());
+		$this->assertEquals('main', $result->getTemplateName());
 		$this->assertTrue($result instanceof TemplateResponse);
 	}
 

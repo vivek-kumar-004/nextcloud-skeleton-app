@@ -1,11 +1,12 @@
 {
-    "name": "Skeleton App",
+    "name": "abijeetpatro/skeleton-app",
     "description": "A skeleton app to be used as a base for other Nextcloud apps",
     "type": "project",
     "license": "AGPL",
     "authors": [
         {
-            "name": "Abijeet Patro"
+			"name": "Abijeet Patro",
+			"email": "abijeetpatro@gmail.com"
         }
     ],
     "require": {
@@ -15,6 +16,12 @@
 		"phpunit/phpunit": "^9.0",
 		"phan/phan": "^2.6"
 	},
+	"config": {
+		"optimize-autoloader": true,
+        "classmap-authoritative": true
+	},
 	"scripts": {
+		"test:unit": "phpunit -c phpunit.xml --fail-on-warning",
+		"test:integration": "phpunit -c phpunit.integration.xml --fail-on-warning"
 	}
 }

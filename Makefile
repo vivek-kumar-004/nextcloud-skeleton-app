@@ -22,7 +22,7 @@ npm-update:
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php
 
-install-deps: install-composer-deps-dev install-npm-deps-dev
+install-deps: install-composer-deps-dev npm-init
 
 install-composer-deps: composer.phar
 	php composer.phar install --no-dev -o
@@ -74,8 +74,8 @@ stylelint-fix:
 
 # Cleaning
 clean:
-	rm -f js/contacts.js
-	rm -f js/contacts.js.map
+	rm -f js/*
+	rm -f js/*
 	rm -Rf js/chunks
 
 clean-dev:
