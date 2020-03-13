@@ -24,10 +24,10 @@ composer-update:
 
 install-deps: install-composer-deps-dev npm-init
 
-install-composer-deps: composer.phar
+install-composer-deps:
 	composer install --no-dev -o
 
-install-composer-deps-dev: composer.phar
+install-composer-deps-dev:
 	composer install -o
 
 # Building
