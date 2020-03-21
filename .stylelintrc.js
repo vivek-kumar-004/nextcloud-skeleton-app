@@ -23,4 +23,4 @@ module.exports = {
 		'string-quotes': 'single'
 	},
 	plugins: ['stylelint-scss']
-}
+};
