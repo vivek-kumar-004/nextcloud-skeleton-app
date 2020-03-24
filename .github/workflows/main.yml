@@ -1,4 +1,4 @@
-name: PHP / JavaScript CI
+name: Code quality checks
 on:
   push:
     branches: [ master ]
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.4]
+        php-versions: [7.4]
     steps:
 
     - name: Check out nextcloud/server
@@ -18,6 +18,7 @@ jobs:
       with:
         repository: nextcloud/server
         ref: stable18
+        path: server
 
     - name: Checkout app
       uses: actions/checkout@v2
@@ -25,7 +26,12 @@ jobs:
         path: server/app/skeleton_app
         clean: false
 
+    - name: List files
+      working-directory: server/app/skeleton_app
+      run: ls -al
+
     - name: Get composer cache directory
+      working-directory: server/app/skeleton_app
       id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -44,15 +50,13 @@ jobs:
       run: make install-deps
       working-directory: server/app/skeleton_app
 
-    - name: Adding pecl extension ast
+    - name: Adding PECL ast extension
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: ${{ matrix.php-versions }}
         tools: pecl
         extensions: ast
 
-    - name: Pre-commit check
+    - name: Code quality check
       run: make pre-commit
       working-directory: server/app/skeleton_app
-
-

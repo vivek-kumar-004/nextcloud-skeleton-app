@@ -22,12 +22,12 @@ npm-update:
 composer-update:
 	composer update
 
-install-deps: install-composer-deps-dev npm-init
+install-deps: composer-install-dev npm-init
 
-install-composer-deps:
+composer-install:
 	composer install --no-dev -o
 
-install-composer-deps-dev:
+composer-install-dev:
 	composer install -o
 
 # Building
@@ -82,9 +82,10 @@ php-lint-fix:
 php-analyze:
 	composer run phan
 
-# Pre-commit
+# Lint all files
 lint-all: lint-fix lint stylelint-fix stylelint php-lint-fix php-lint
 
+# Full code quality check
 pre-commit: lint-all php-analyze
 
 # Cleaning
