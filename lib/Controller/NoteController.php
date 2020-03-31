@@ -46,6 +46,11 @@ class NoteController extends Controller
 		});
 	}
 
+	public function checkCount(): DataResponse
+	{
+		return new DataResponse($this->service->getNoteCount($this->userId));
+	}
+
 	/**
 	 * @NoAdminRequired
 	 */

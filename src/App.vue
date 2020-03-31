@@ -2,6 +2,10 @@
 	<div id="content" class="app-skeleton_app">
 		<AppNavigation>
 			<AppNavigationNew v-if="!loading"
+				:text="t('skeleton_app', 'Check Count')"
+				:disabled="false"
+				@click="checkCount" />
+			<AppNavigationNew v-if="!loading"
 				:text="t('skeleton_app', 'New note')"
 				:disabled="false"
 				button-id="new-skeleton_app-button"
@@ -158,6 +162,10 @@ export default {
 		cancelNewNote() {
 			this.notes.splice(this.notes.findIndex((note) => note.id === -1), 1);
 			this.currentNoteId = null;
+		},
+		async checkCount() {
+			const response = await axios.get(OC.generateUrl(`/apps/skeleton_app/notes/checkCount`))
+			alert(response)
 		},
 		/**
 		 * Create a new note by sending the information to the server
