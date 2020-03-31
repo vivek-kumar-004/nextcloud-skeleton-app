@@ -7,12 +7,12 @@ use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
-class NoteMapper extends QBMapper
+class CountMapper extends QBMapper
 {
 
 	public function __construct(IDBConnection $db)
 	{
-		parent::__construct($db, 'notestutorial', Note::class);
+		parent::__construct($db, 'notes_count', Count::class);
 	}
 
 	/**
@@ -22,12 +22,12 @@ class NoteMapper extends QBMapper
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
 	 * @throws DoesNotExistException
 	 */
-	public function find(int $id, string $userId): Note
+	public function find(int $id, string $userId): Count
 	{
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
-			->from('notestutorial')
+			->from('notes_count')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
 			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
 		return $this->findEntity($qb);
@@ -42,24 +42,21 @@ class NoteMapper extends QBMapper
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
-			->from('notestutorial')
+			->from('notes_count')
 			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
 		return $this->findEntities($qb);
 	}
 
-	public function totalNoteCount(string $userId): string
+	public function getCountNote(string $userId): array
 	{
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
-		$qb->select($qb->func()->count('id'))
-			->from('notestutorial')
-			->where($qb->expr()->eq("user_id", $qb->createNamedParameter($userId)));
-		$result = $qb->execute();
-
-		return $result->fetchColumn();
-
+		$qb->select('note_count')
+			->from('notes_count')
+			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+		return $this->findEntities($qb);
 	}
 
+
+
 }
-
-

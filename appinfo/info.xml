@@ -17,7 +17,11 @@
     <navigations>
         <navigation>
             <name>Skeleton App</name>
-            <route>skeletonapp.page.index</route>
+            <route>skeleton_app.page.index</route>
         </navigation>
     </navigations>
+		<background-jobs>
+				<job>OCA\SkeletonApp\Jobs\CronTask</job>
+		</background-jobs>
 </info>
+
