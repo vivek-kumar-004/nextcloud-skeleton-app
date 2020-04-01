@@ -12,8 +12,9 @@
 
 namespace OCA\SkeletonApp\Jobs;
 
-use OC\BackgroundJob\TimedJob;
+use OCP\BackgroundJob\TimedJob;
 use OCA\SkeletonApp\Service\CronService;
+use OCP\AppFramework\Utility\ITimeFactory;
 
 class CronTask extends TimedJob
 {
@@ -26,7 +27,7 @@ class CronTask extends TimedJob
 		$this->cronService = $service;
 		$this->userId = $userId;
 
-		parent::setInterval(9000);
+		parent::setInterval(60);
 	}
 
 	public static function run($userId)

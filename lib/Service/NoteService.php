@@ -6,8 +6,10 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\SkeletonApp\Db\Note;
+use OCA\SkeletonApp\Db\Count;
 use OCA\SkeletonApp\Db\NoteMapper;
 use OCA\SkeletonApp\Db\CountMapper;
+use DateTime;
 
 class NoteService
 {
@@ -85,12 +87,9 @@ class NoteService
 		}
 	}
 
-	// public function getNoteCount(string $userId): array
-	// {
-	// 	return $this->countMapper->getCountNote($userId);
-	// }
-	public function getNoteCount(string $userId): string
+	public function getNoteCount(string $userId): array
 	{
-		return $this->mapper->totalNoteCount($userId);
+		return $this->countMapper->getCountNote($userId);
 	}
+
 }

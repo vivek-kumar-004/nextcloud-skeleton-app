@@ -54,6 +54,7 @@ class NoteMapper extends QBMapper
 		$qb->select($qb->func()->count('id'))
 			->from('notestutorial')
 			->where($qb->expr()->eq("user_id", $qb->createNamedParameter($userId)));
+
 		$result = $qb->execute();
 
 		return $result->fetchColumn();

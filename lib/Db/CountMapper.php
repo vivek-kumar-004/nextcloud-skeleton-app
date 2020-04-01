@@ -12,7 +12,7 @@ class CountMapper extends QBMapper
 
 	public function __construct(IDBConnection $db)
 	{
-		parent::__construct($db, 'notes_count', Count::class);
+		parent::__construct($db, 'notes_count', 'users',  Count::class);
 	}
 
 	/**
@@ -47,14 +47,29 @@ class CountMapper extends QBMapper
 		return $this->findEntities($qb);
 	}
 
+	// public function getCountNote(string $userId): array
+	// {
+	// 	/* @var $qb IQueryBuilder */
+	// 	$qb = $this->db->getQueryBuilder();
+	// 	$qb->select('note_count')
+	// 		->from('notes_count')
+	// 		->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)))
+	// 		->orderBy('note_count', 'DESC')
+	// 		->setMaxResults(1);
+	// 	return $this->findEntities($qb);
+	// }
 	public function getCountNote(string $userId): array
 	{
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
-		$qb->select('note_count')
-			->from('notes_count')
-			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
-		return $this->findEntities($qb);
+		$qb->select('u.uid AS user')
+			->selectAlias($qb->createFunction('COUNT(' . $qb->getColumnName('u.uid') . ')'), 'count')
+			->from('users', 'u')
+			->innerJoin('u', 'notes_count', 'c', $qb->expr()->eq('c.user_id', 'u.uid'));
+		$qb->groupBy('u.uid')
+			->orderBy('count', 'DESC');
+
+		return $qb->execute()->fetchAll();
 	}
 
 

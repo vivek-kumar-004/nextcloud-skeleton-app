@@ -45,6 +45,19 @@
 					:disabled="updating || !savePossible"
 					@click="saveNote">
 			</div>
+			<div v-else-if="checkNote == true" id="countNotes">
+
+				<table>
+					<tr>
+						<th>Note User</th>
+						<th>Total Notes</th>
+					</tr>
+					<tr v-for="item in countData" :key="item.count">
+						<td>{{ item.user }}</td>
+						<td>{{ item.count }}</td>
+					</tr>
+				</table>
+			</div>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('skeleton_app', 'Create a note to get started') }}</h2>
@@ -54,13 +67,13 @@
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton';
-import AppContent from '@nextcloud/vue/dist/Components/AppContent';
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation';
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem';
-import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew';
+import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
+import AppContent from '@nextcloud/vue/dist/Components/AppContent'
+import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
+import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
+import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
 
-import axios from '@nextcloud/axios';
+import axios from '@nextcloud/axios'
 
 export default {
 	name: 'App',
@@ -77,7 +90,11 @@ export default {
 			currentNoteId: null,
 			updating: false,
 			loading: true,
-		};
+			count: '',
+			seen: true,
+			checkNote: false,
+			countData: [],
+		}
 	},
 	computed: {
 		/**
@@ -86,9 +103,9 @@ export default {
 		 */
 		currentNote() {
 			if (this.currentNoteId === null) {
-				return null;
+				return null
 			}
-			return this.notes.find((note) => note.id === this.currentNoteId);
+			return this.notes.find((note) => note.id === this.currentNoteId)
 		},
 
 		/**
@@ -96,7 +113,7 @@ export default {
 		 * @returns {Boolean}
 		 */
 		savePossible() {
-			return this.currentNote && this.currentNote.title !== '';
+			return this.currentNote && this.currentNote.title !== ''
 		},
 	},
 	/**
@@ -104,13 +121,13 @@ export default {
 	 */
 	async mounted() {
 		try {
-			const response = await axios.get(OC.generateUrl('/apps/skeleton_app/notes'));
-			this.notes = response.data;
+			const response = await axios.get(OC.generateUrl('/apps/skeleton_app/notes'))
+			this.notes = response.data
 		} catch (e) {
-			console.error(e);
-			OCP.Toast.error(t('skeleton_app', 'Could not fetch notes'));
+			console.error(e)
+			OCP.Toast.error(t('skeleton_app', 'Could not fetch notes'))
 		}
-		this.loading = false;
+		this.loading = false
 	},
 
 	methods: {
@@ -120,12 +137,12 @@ export default {
 		 */
 		openNote(note) {
 			if (this.updating) {
-				return;
+				return
 			}
-			this.currentNoteId = note.id;
+			this.currentNoteId = note.id
 			this.$nextTick(() => {
-				this.$refs.content.focus();
-			});
+				this.$refs.content.focus()
+			})
 		},
 		/**
 		 * Action tiggered when clicking the save button
@@ -133,9 +150,9 @@ export default {
 		 */
 		saveNote() {
 			if (this.currentNoteId === -1) {
-				this.createNote(this.currentNote);
+				this.createNote(this.currentNote)
 			} else {
-				this.updateNote(this.currentNote);
+				this.updateNote(this.currentNote)
 			}
 		},
 		/**
@@ -145,58 +162,60 @@ export default {
 		 */
 		newNote() {
 			if (this.currentNoteId !== -1) {
-				this.currentNoteId = -1;
+				this.currentNoteId = -1
 				this.notes.push({
 					id: -1,
 					title: '',
 					content: '',
-				});
+				})
 				this.$nextTick(() => {
-					this.$refs.title.focus();
-				});
+					this.$refs.title.focus()
+				})
 			}
 		},
 		/**
 		 * Abort creating a new note
 		 */
 		cancelNewNote() {
-			this.notes.splice(this.notes.findIndex((note) => note.id === -1), 1);
-			this.currentNoteId = null;
+			this.notes.splice(this.notes.findIndex((note) => note.id === -1), 1)
+			this.currentNoteId = null
 		},
 		async checkCount() {
+			this.checkNote = !this.checkNote
 			const response = await axios.get(OC.generateUrl(`/apps/skeleton_app/notes/checkCount`))
-			alert(response)
+			this.countData = response.data
+
 		},
 		/**
 		 * Create a new note by sending the information to the server
 		 * @param {Object} note Note object
 		 */
 		async createNote(note) {
-			this.updating = true;
+			this.updating = true
 			try {
-				const response = await axios.post(OC.generateUrl(`/apps/skeleton_app/notes`), note);
-				const index = this.notes.findIndex((match) => match.id === this.currentNoteId);
-				this.$set(this.notes, index, response.data);
-				this.currentNoteId = response.data.id;
+				const response = await axios.post(OC.generateUrl(`/apps/skeleton_app/notes`), note)
+				const index = this.notes.findIndex((match) => match.id === this.currentNoteId)
+				this.$set(this.notes, index, response.data)
+				this.currentNoteId = response.data.id
 			} catch (e) {
-				console.error(e);
-				OCP.Toast.error(t('skeleton_app', 'Could not create the note'));
+				console.error(e)
+				OCP.Toast.error(t('skeleton_app', 'Could not create the note'))
 			}
-			this.updating = false;
+			this.updating = false
 		},
 		/**
 		 * Update an existing note on the server
 		 * @param {Object} note Note object
 		 */
 		async updateNote(note) {
-			this.updating = true;
+			this.updating = true
 			try {
-				await axios.put(OC.generateUrl(`/apps/skeleton_app/notes/${note.id}`), note);
+				await axios.put(OC.generateUrl(`/apps/skeleton_app/notes/${note.id}`), note)
 			} catch (e) {
-				console.error(e);
-				OCP.Toast.error(t('skeleton_app', 'Could not update the note'));
+				console.error(e)
+				OCP.Toast.error(t('skeleton_app', 'Could not update the note'))
 			}
-			this.updating = false;
+			this.updating = false
 		},
 		/**
 		 * Delete a note, remove it from the frontend and show a hint
@@ -204,19 +223,19 @@ export default {
 		 */
 		async deleteNote(note) {
 			try {
-				await axios.delete(OC.generateUrl(`/apps/skeleton_app/notes/${note.id}`));
-				this.notes.splice(this.notes.indexOf(note), 1);
+				await axios.delete(OC.generateUrl(`/apps/skeleton_app/notes/${note.id}`))
+				this.notes.splice(this.notes.indexOf(note), 1)
 				if (this.currentNoteId === note.id) {
-					this.currentNoteId = null;
+					this.currentNoteId = null
 				}
-				OCP.Toast.success(t('skeleton_app', 'Note deleted'));
+				OCP.Toast.success(t('skeleton_app', 'Note deleted'))
 			} catch (e) {
-				console.error(e);
-				OCP.Toast.error(t('skeleton_app', 'Could not delete the note'));
+				console.error(e)
+				OCP.Toast.error(t('skeleton_app', 'Could not delete the note'))
 			}
 		},
 	},
-};
+}
 </script>
 <style scoped>
 	#app-content > div {
