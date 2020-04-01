@@ -35,16 +35,17 @@ class CronService
 		$noteCount = new Count();
 		$noteCount->setUserId($userId);
 		$noteCount->setNoteCount($count);
-		$noteCount->setCreatedAt(new DateTime());
-		$noteCount->setUpdatedAt(new DateTime());
-		return $this->mapper->insert($noteCount);
+		$noteCount->setCreatedAt("2020-03-31 17:37:03");
+		$noteCount->setUpdatedAt("2020-03-31 17:37:03");
+
+		return $this->countMapper->insert($noteCount);
 	}
 
-	public function updateNoteCount(string $userId): array
+	public function updateNoteCount(string $userId)
 	{
-		$count = $this->countMapper->totalNoteCount($userId);
+		$count = $this->mapper->totalNoteCount($userId);
 		return $this->updateCount($userId, $count);
 	}
-
-
 }
+
+

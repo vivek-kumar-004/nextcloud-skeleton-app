@@ -11,7 +11,7 @@ class Count extends Entity implements JsonSerializable
 	protected $noteCount;
 	protected $userId;
 	protected $createdAt;
-	protected $modifiedAt;
+	protected $updatedAt;
 
 	public function jsonSerialize(): array
 	{

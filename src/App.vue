@@ -45,6 +45,19 @@
 					:disabled="updating || !savePossible"
 					@click="saveNote">
 			</div>
+			<div v-else-if="checkNote == true" id="countNotes">
+
+				<table>
+					<tr>
+						<th>Note User</th>
+						<th>Total Notes</th>
+					</tr>
+					<tr v-for="item in countData" :key="item.count">
+						<td>{{ item.user }}</td>
+						<td>{{ item.count }}</td>
+					</tr>
+				</table>
+			</div>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
 				<h2>{{ t('skeleton_app', 'Create a note to get started') }}</h2>
@@ -77,6 +90,10 @@ export default {
 			currentNoteId: null,
 			updating: false,
 			loading: true,
+			count: '',
+			seen: true,
+			checkNote: false,
+			countData: [],
 		}
 	},
 	computed: {
@@ -164,8 +181,10 @@ export default {
 			this.currentNoteId = null
 		},
 		async checkCount() {
+			this.checkNote = !this.checkNote
 			const response = await axios.get(OC.generateUrl(`/apps/skeleton_app/notes/checkCount`))
-			alert(response)
+			this.countData = response.data
+
 		},
 		/**
 		 * Create a new note by sending the information to the server
