@@ -15,6 +15,7 @@ namespace OCA\SkeletonApp\Service;
 use OCA\SkeletonApp\Db\Count;
 use OCA\SkeletonApp\Db\NoteMapper;
 use OCA\SkeletonApp\Db\CountMapper;
+use DateTime;
 
 class CronService
 {
@@ -35,8 +36,8 @@ class CronService
 		$noteCount = new Count();
 		$noteCount->setUserId($userId);
 		$noteCount->setNoteCount($count);
-		$noteCount->setCreatedAt("2020-03-31 17:37:03");
-		$noteCount->setUpdatedAt("2020-03-31 17:37:03");
+		$noteCount->setCreatedAt(date("Y-m-d h:i:sa"));
+		$noteCount->setUpdatedAt(date("Y-m-d h:i:sa"));
 
 		return $this->countMapper->insert($noteCount);
 	}
@@ -47,5 +48,3 @@ class CronService
 		return $this->updateCount($userId, $count);
 	}
 }
-
-

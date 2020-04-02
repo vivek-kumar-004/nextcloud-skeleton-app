@@ -10,7 +10,7 @@
  * @copyright Patrizio Bekerle 2015
  */
 
-namespace OCA\SkeletonApp\Jobs;
+namespace OCA\SkeletonApp\Job;
 
 use OCP\BackgroundJob\TimedJob;
 use OCA\SkeletonApp\Service\CronService;

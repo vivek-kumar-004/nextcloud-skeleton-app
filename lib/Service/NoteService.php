@@ -91,5 +91,4 @@ class NoteService
 	{
 		return $this->countMapper->getCountNote($userId);
 	}
-
 }

@@ -21,7 +21,7 @@
         </navigation>
     </navigations>
 		<background-jobs>
-				<job>OCA\SkeletonApp\Jobs\CronTask</job>
+				<job>OCA\SkeletonApp\Job\CronTask</job>
 		</background-jobs>
 </info>
 
