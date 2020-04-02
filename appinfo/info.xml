@@ -21,7 +21,11 @@
         </navigation>
     </navigations>
 		<background-jobs>
+<<<<<<< HEAD
 				<job>OCA\SkeletonApp\Job\CronTask</job>
+=======
+				<job>OCA\SkeletonApp\Jobs\CronTask</job>
+>>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 		</background-jobs>
 </info>
 

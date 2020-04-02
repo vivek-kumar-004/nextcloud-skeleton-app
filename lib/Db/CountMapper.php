@@ -12,7 +12,11 @@ class CountMapper extends QBMapper
 
 	public function __construct(IDBConnection $db)
 	{
+<<<<<<< HEAD
 		parent::__construct($db, 'notes_count', 'users', Count::class);
+=======
+		parent::__construct($db, 'notes_count', 'users',  Count::class);
+>>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 	}
 
 	/**
@@ -62,7 +66,11 @@ class CountMapper extends QBMapper
 	{
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
+<<<<<<< HEAD
 		$qb->select('u.uid AS user', 'u.displayname AS dispName')
+=======
+		$qb->select('u.uid AS user')
+>>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 			->selectAlias($qb->createFunction('COUNT(' . $qb->getColumnName('u.uid') . ')'), 'count')
 			->from('users', 'u')
 			->innerJoin('u', 'notes_count', 'c', $qb->expr()->eq('c.user_id', 'u.uid'));
@@ -71,4 +79,10 @@ class CountMapper extends QBMapper
 
 		return $qb->execute()->fetchAll();
 	}
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 }

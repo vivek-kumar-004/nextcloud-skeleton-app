@@ -36,6 +36,10 @@ class Version000011Date20200331062644 extends SimpleMigrationStep
 			$table->addColumn('note_count', 'integer', [
 				'notnull' => false,
 			]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 			$table->addColumn('created_at', 'datetime', [
 				'notnull' => false,
 			]);
@@ -43,7 +47,10 @@ class Version000011Date20200331062644 extends SimpleMigrationStep
 				'notnull' => false,
 			]);
 			$table->setPrimaryKey(['id']);
+<<<<<<< HEAD
 			$table->addIndex(['user_id'], 'notes_count_user_id_index');
+=======
+>>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 		}
 		return $schema;
 	}
