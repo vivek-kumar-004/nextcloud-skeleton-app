@@ -1,7 +1,6 @@
 <template>
 	<div id="content" class="app-skeleton_app">
 		<AppNavigation>
-<<<<<<< HEAD
 			<AppNavigationNew
 				v-if="!loading"
 				:text="t('skeleton_app', 'Check Count')"
@@ -9,13 +8,6 @@
 				@click="checkCount" />
 			<AppNavigationNew
 				v-if="!loading"
-=======
-			<AppNavigationNew v-if="!loading"
-				:text="t('skeleton_app', 'Check Count')"
-				:disabled="false"
-				@click="checkCount" />
-			<AppNavigationNew v-if="!loading"
->>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 				:text="t('skeleton_app', 'New note')"
 				:disabled="false"
 				button-id="new-skeleton_app-button"
@@ -60,7 +52,6 @@
 					@click="saveNote">
 			</div>
 			<div v-else-if="checkNote == true" id="countNotes">
-<<<<<<< HEAD
 				<table>
 					<tr>
 						<th>
@@ -69,13 +60,6 @@
 						<th>
 							<b>Total Notes</b>
 						</th>
-=======
-
-				<table>
-					<tr>
-						<th>Note User</th>
-						<th>Total Notes</th>
->>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 					</tr>
 					<tr v-for="item in countData" :key="item.count">
 						<td>{{ item.user }}</td>
@@ -119,11 +103,7 @@ export default {
 			seen: true,
 			checkNote: false,
 			countData: [],
-<<<<<<< HEAD
 		};
-=======
-		}
->>>>>>> 24eaa13bde9dc2b7c14c65f0beaa9508cb454aba
 	},
 	computed: {
 		/**
