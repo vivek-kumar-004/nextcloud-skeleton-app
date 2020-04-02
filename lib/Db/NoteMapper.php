@@ -60,5 +60,3 @@ class NoteMapper extends QBMapper
 		return $result->fetchColumn();
 	}
 }
-
-

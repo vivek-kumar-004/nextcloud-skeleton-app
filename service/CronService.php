@@ -47,5 +47,3 @@ class CronService
 		return $this->updateCount($userId, $count);
 	}
 }
-
-

@@ -207,12 +207,6 @@ export default {
 			const response = await axios.get(OC.generateUrl(`/apps/skeleton_app/notes/checkCount`));
 			this.countData = response.data;
 		},
-		async checkCount() {
-			this.checkNote = !this.checkNote
-			const response = await axios.get(OC.generateUrl(`/apps/skeleton_app/notes/checkCount`))
-			this.countData = response.data
-
-		},
 		/**
 		 * Create a new note by sending the information to the server
 		 * @param {Object} note Note object
