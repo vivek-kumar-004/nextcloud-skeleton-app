@@ -1,0 +1,34 @@
+name: Check PHP Code Quality
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [7.4]
+    steps:
+
+    - name: Checkout App
+      uses: actions/checkout@v2
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: |
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Check Composer Cache
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
+    - name: Install Dependencies
+      run: make composer-install-dev
+
+    - name: Check PHP Code
+      run: make php-lint

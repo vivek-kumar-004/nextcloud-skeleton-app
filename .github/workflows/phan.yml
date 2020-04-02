@@ -1,0 +1,58 @@
+name: PHP Static Analysis
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [7.4]
+    steps:
+
+    - name: Checkout nextcloud/server
+      uses: actions/checkout@v2
+      with:
+        repository: nextcloud/server
+        ref: stable18
+        path: server
+
+    - name: Checkout App
+      uses: actions/checkout@v2
+      with:
+        path: server/app/skeleton_app
+        clean: false
+
+    - name: List Files
+      working-directory: server/app/skeleton_app
+      run: ls -al
+
+    - name: Get Composer Cache Directory
+      working-directory: server/app/skeleton_app
+      id: composer-cache
+      run: |
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - name: Check Composer Cache
+      uses: actions/cache@v1
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
+    - name: Install Dependencies
+      run: make composer-install-dev
+      working-directory: server/app/skeleton_app
+
+    - name: Add PECL ast Extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        tools: pecl
+        extensions: ast
+
+    - name: Analyze PHP Code
+      run: make php-analyze
+      working-directory: server/app/skeleton_app

@@ -1,6 +1,6 @@
-const path = require('path')
-const { VueLoaderPlugin } = require('vue-loader')
-const StyleLintPlugin = require('stylelint-webpack-plugin')
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
 	entry: path.join(__dirname, 'src', 'main.js'),
@@ -52,4 +52,4 @@ module.exports = {
 		extensions: ['*', '.js', '.vue'],
 		symlinks: false,
 	},
-}
+};
