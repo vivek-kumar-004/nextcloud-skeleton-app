@@ -7,16 +7,19 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\SkeletonApp\Db\Note;
 use OCA\SkeletonApp\Db\NoteMapper;
+use OCA\SkeletonApp\Db\CountMapper;
 
 class NoteService
 {
 
 	/** @var NoteMapper */
 	private $mapper;
+	private $countMapper;
 
-	public function __construct(NoteMapper $mapper)
+	public function __construct(NoteMapper $mapper, CountMapper $countMapper)
 	{
 		$this->mapper = $mapper;
+		$this->countMapper = $countMapper;
 	}
 
 	public function findAll(string $userId): array
@@ -80,5 +83,10 @@ class NoteService
 		} catch (Exception $e) {
 			$this->handleException($e);
 		}
+	}
+
+	public function getNoteCount(string $userId): array
+	{
+		return $this->countMapper->getCountNote($userId);
 	}
 }

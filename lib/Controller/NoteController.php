@@ -11,8 +11,9 @@ class NoteController extends Controller
 {
 	use Errors;
 
-	/** @var NoteService */
+/** @var NoteService */
 	private $service;
+	private $cronService;
 
 	/** @var string */
 	private $userId;
@@ -27,8 +28,7 @@ class NoteController extends Controller
 		$this->service = $service;
 		$this->userId = $userId;
 	}
-
-	/**
+		/**
 	 * @NoAdminRequired
 	 */
 	public function index(): DataResponse
@@ -44,6 +44,13 @@ class NoteController extends Controller
 		return $this->handleNotFound(function () use ($id) {
 			return $this->service->find($id, $this->userId);
 		});
+	}
+		/**
+	 * @NoAdminRequired
+	 */
+	public function checkCount(): DataResponse
+	{
+		return new DataResponse($this->service->getNoteCount($this->userId));
 	}
 
 	/**

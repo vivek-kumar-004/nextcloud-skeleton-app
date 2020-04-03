@@ -20,7 +20,9 @@ return [
 		'vendor/',
 		'../../core',
 		'../../lib',
+		'../../3rdparty/',
 	],
+
 
 	// A directory list that defines files that will be excluded
 	// from static analysis, but whose class and method
@@ -37,5 +39,6 @@ return [
 		'vendor/',
 		'../../core',
 		'../../lib',
+		'../../3rdparty/',
 	],
 ];
