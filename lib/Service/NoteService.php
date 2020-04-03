@@ -6,10 +6,8 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCA\SkeletonApp\Db\Note;
-use OCA\SkeletonApp\Db\Count;
 use OCA\SkeletonApp\Db\NoteMapper;
 use OCA\SkeletonApp\Db\CountMapper;
-use DateTime;
 
 class NoteService
 {

@@ -12,13 +12,13 @@ class CountMapper extends QBMapper
 
 	public function __construct(IDBConnection $db)
 	{
-		parent::__construct($db, 'notes_count', 'users', Count::class);
+		parent::__construct($db, 'notes_count', Count::class);
 	}
 
 	/**
 	 * @param int $id
 	 * @param string $userId
-	 * @return Note
+	 * @return Count
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
 	 * @throws DoesNotExistException
 	 */
@@ -58,7 +58,9 @@ class CountMapper extends QBMapper
 			->innerJoin('u', 'notes_count', 'c', $qb->expr()->eq('c.user_id', 'u.uid'));
 		$qb->groupBy('u.uid')
 			->orderBy('count', 'DESC');
+		$result = $qb->execute();
 
-		return $qb->execute()->fetchAll();
+		return $result->fetchAll();
+		// return $qb->execute()->fetchAll();
 	}
 }

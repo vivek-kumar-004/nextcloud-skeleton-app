@@ -203,7 +203,7 @@ export default {
 			this.currentNoteId = null;
 		},
 		async checkCount() {
-			this.checkNote = true;
+			this.checkNote = !this.checkNote;
 			const response = await axios.get(OC.generateUrl(`/apps/skeleton_app/notes/checkCount`));
 			this.countData = response.data;
 		},

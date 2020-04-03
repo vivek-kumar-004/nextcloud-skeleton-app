@@ -30,8 +30,8 @@ class CronTask extends TimedJob
 		parent::setInterval(60);
 	}
 
-	public static function run($userId)
+	public function run($userId)
 	{
-		$this->cronService->updateNoteCount($userId);
+		return $this->cronService->updateNoteCount($userId);
 	}
 }

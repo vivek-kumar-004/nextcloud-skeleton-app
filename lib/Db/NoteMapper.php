@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OCA\SkeletonApp\Db;
 
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -47,7 +49,7 @@ class NoteMapper extends QBMapper
 		return $this->findEntities($qb);
 	}
 
-	public function totalNoteCount(string $userId): string
+	public function totalNoteCount(string $userId): int
 	{
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
@@ -57,6 +59,9 @@ class NoteMapper extends QBMapper
 
 		$result = $qb->execute();
 
-		return $result->fetchColumn();
+		$cnt = $result->fetchColumn();
+		$result->closeCursor();
+
+		return (int)$cnt;
 	}
 }
